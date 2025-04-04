@@ -102,7 +102,7 @@ if IS_PYDANTIC_V2:
         model.model_config[parameter] = value  # type: ignore[literal-required]
 
     def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
-        return model.model_fields
+        return model.__class__.model_fields if isinstance(model, BaseModel) else model.model_fields
 
     def get_fields_set(
         object: InstanceOrType["SQLModel"],
